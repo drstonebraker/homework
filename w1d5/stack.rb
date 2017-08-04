@@ -12,6 +12,6 @@ class Stack
   end
 
   def show
-    self.dup
+    @stack.dup
   end
 end
