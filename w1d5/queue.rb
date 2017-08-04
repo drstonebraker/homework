@@ -3,11 +3,11 @@ class Queue
     @queue = []
   end
 
-  def add(el)
+  def enqueue(el)
     @queue << el
   end
 
-  def remove
+  def dequeue
     @queue.shift
   end
 
