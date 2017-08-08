@@ -52,7 +52,6 @@ class Board
     print "      #{@cups.take(6).map { |cup| cup.count }}      \n"
     puts ""
     puts ""
-    p @cups
   end
 
   def one_side_empty?
