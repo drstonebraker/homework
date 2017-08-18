@@ -107,24 +107,31 @@ class MetaCorgiSnacks
   def initialize(snack_box, box_id)
     @snack_box = snack_box
     @box_id = box_id
+    snack_box.methods.grep(/^get_(.*)_info$/) { MetaCorgiSnacks.define_snack $1 }
   end
 
-  def method_missing(name, *args)
-    # Your code goes here...
-    name_str = name.to_s
-    if %w(bone kibble treat).include?(name_str)
-      info = @snack_box.send("get_#{name_str}_info".to_sym, @box_id)
-      tastiness = @snack_box.send("get_#{name_str}_tastiness", @box_id)
-      result = "#{name_str.capitalize}: #{info}: #{tastiness} "
-      tastiness > 30 ? "* #{result}" : result
-    else
-      super
-    end
-  end
+  # def method_missing(name, *args)
+  #   # Your code goes here...
+  #   name_str = name.to_s
+  #   if %w(bone kibble treat).include?(name_str)
+  #     info = @snack_box.send("get_#{name_str}_info".to_sym, @box_id)
+  #     tastiness = @snack_box.send("get_#{name_str}_tastiness", @box_id)
+  #     result = "#{name_str.capitalize}: #{info}: #{tastiness} "
+  #     tastiness > 30 ? "* #{result}" : result
+  #   else
+  #     super
+  #   end
+  # end
 
 
   def self.define_snack(name)
     # Your code goes here...
+    define_method(name.to_sym) do
+      info = @snack_box.send("get_#{name}_info".to_sym, @box_id)
+      tastiness = @snack_box.send("get_#{name}_tastiness", @box_id)
+      result = "#{name.capitalize}: #{info}: #{tastiness} "
+      tastiness > 30 ? "* #{result}" : result
+    end
   end
 end
 
@@ -133,5 +140,6 @@ if __FILE__ == $0
   snack_box = SnackBox.new
   meta_snacks = MetaCorgiSnacks.new(snack_box, 1)
   p meta_snacks.bone # => "Bone: Phoenician rawhide: 20 "
-  p meta_snacks.kibble # => "* Kibble: Delicately braised hamhocks: 33"
+  p meta_snacks.kibble # => "* Kibble: Delicately braised hamhocks: 33 "
+  p meta_snacks.treat # => "Treat: Chewy dental sticks: 40 "
 end
