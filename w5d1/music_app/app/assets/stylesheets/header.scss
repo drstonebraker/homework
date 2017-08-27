@@ -1,0 +1,9 @@
+
+.session-control-buttons {
+  display: flex;
+  justify-content: flex-end;
+  li {
+    padding: 1em;
+    list-style-position: inside;
+  }
+}
