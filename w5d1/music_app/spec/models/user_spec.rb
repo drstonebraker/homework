@@ -45,17 +45,23 @@ RSpec.describe User, type: :model do
   end
 
   describe 'User::find_by_credentials' do
-    it 'returns nil when email does not exist' do
-      result = User.find_by_credentials('z@zzz.com', password)
-      expect(result).to be(nil)
+    context 'when email does not exist' do
+      it 'returns nil ' do
+        result = User.find_by_credentials('z@zzz.com', password)
+        expect(result).to be(nil)
+      end
     end
-    it 'returns nil when password is not correct' do
-      result = User.find_by_credentials(user.email, 'password')
-      expect(result).to be(nil)
+    context 'when password is not correct' do
+      it 'returns nil' do
+        result = User.find_by_credentials(user.email, 'password')
+        expect(result).to be(nil)
+      end
     end
-    it 'returns user when email and password are valid' do
-      result = User.find_by_credentials(user.email, password)
-      expect(result).to eq(user)
+    context 'when email and password are valid' do
+      it 'returns user' do
+        result = User.find_by_credentials(user.email, password)
+        expect(result).to eq(user)
+      end
     end
   end
 
