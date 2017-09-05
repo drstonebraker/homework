@@ -23,6 +23,7 @@ View.prototype.exercise1 = function () {
   //Result: Every square should turn orange (we already have a CSS rule)
 
   //your code here!
+  $('.square').addClass('orange');
 };
 
 View.prototype.exercise2 = function () {
@@ -30,6 +31,7 @@ View.prototype.exercise2 = function () {
   //Result: Every square vanishes
 
   //your code here!
+  $('.square').css('display', 'none')
 };
 
 View.prototype.exercise3 = function () {
@@ -37,6 +39,8 @@ View.prototype.exercise3 = function () {
   //Result: An <h1> with the text 'i love jquery' appears under the grid.
 
   //your code here!
+  const $h1 = $('<h1>').text('i love jquery')
+  this.$el.append($h1)
 };
 
 View.prototype.exercise4 = function () {
@@ -44,6 +48,7 @@ View.prototype.exercise4 = function () {
   //Result: Your name appears in every other square.
 
   //your code here!
+  $('.square:nth-child(even)').text('drew')
 };
 
 View.prototype.exercise5 = function () {
@@ -55,6 +60,7 @@ View.prototype.exercise5 = function () {
   //  'data-pos' of every square
 
   //your code here!
+  $('.square').click((e) => console.log($(e.currentTarget).attr('data-pos')))
 };
 
 View.prototype.exercise6 = function () {
@@ -65,6 +71,7 @@ View.prototype.exercise6 = function () {
   //hint: use window._randomColorString() (defined at top) to get a random color!
 
   //your code here!
+  $('.square').trigger('mouseenter')
 };
 
 View.prototype.exercise7 = function(){
@@ -75,6 +82,11 @@ View.prototype.exercise7 = function(){
   //rainbow.
 
   //your code here!
+  $('.square').on('mouseenter', (e) => {
+    const $sq = $(e.currentTarget);
+    const color = $sq.css('background-color')
+    console.log(color)
+  });
 };
 
 
