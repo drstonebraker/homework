@@ -9874,8 +9874,6 @@ var Widget = function (_React$Component) {
   return Widget;
 }(_react2.default.Component);
 
-;
-
 exports.default = Widget;
 
 /***/ }),
@@ -9891,15 +9889,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(206);
 
-var _redux2 = _interopRequireDefault(_redux);
-
 var _reducer = __webpack_require__(194);
 
 var _reducer2 = _interopRequireDefault(_reducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux2.default)(_reducer2.default);
+var store = (0, _redux.createStore)(_reducer2.default);
 
 exports.default = store;
 
@@ -9923,15 +9919,17 @@ module.exports = __webpack_require__(118);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var SWITCH_CURRENCY = 'SWITCH_CURRENCY';
+var SWITCH_CURRENCY = exports.SWITCH_CURRENCY = 'SWITCH_CURRENCY';
 
-var selectCurrency = exports.selectCurrency = function selectCurrency(baseCurrency, rates) {
+var selectCurrency = function selectCurrency(baseCurrency, rates) {
   return {
     type: SWITCH_CURRENCY,
     baseCurrency: baseCurrency,
     rates: rates
   };
 };
+
+exports.default = selectCurrency;
 
 /***/ }),
 /* 86 */
@@ -23064,6 +23062,9 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _actions = __webpack_require__(85);
+
 var initialState = {
   baseCurrency: "Please select",
   rates: {}
@@ -23071,9 +23072,21 @@ var initialState = {
 
 var reducer = function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
+  var _ref = arguments[1];
+  var type = _ref.type,
+      baseCurrency = _ref.baseCurrency,
+      rates = _ref.rates;
 
-  return state; // remove this and fill out the body of the reducer function
+  Object.freeze(state);
+  switch (type) {
+    case _actions.SWITCH_CURRENCY:
+      return {
+        baseCurrency: baseCurrency,
+        rates: rates
+      };
+    default:
+      return state;
+  }
 };
 
 exports.default = reducer;
